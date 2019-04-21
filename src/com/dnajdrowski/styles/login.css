@@ -1,0 +1,7 @@
+GridPane {
+    -fx-background-color: darkturquoise;
+}
+
+Label {
+    -fx-text-fill: firebrick;
+}

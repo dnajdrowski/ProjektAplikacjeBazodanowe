@@ -12,7 +12,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="loginGridPane" alignment="center" hgap="10" stylesheets="@../styles/login.css" vgap="30" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dnajdrowski.Controllers.loginController">
+<?import javafx.scene.layout.HBox?>
+<GridPane fx:id="loginGridPane" alignment="center" hgap="10" stylesheets="@../styles/login.css"
+          vgap="30" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.dnajdrowski.Controllers.loginController" >
     <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0">
         <Image url="@../images/login.png" />
     </ImageView>
@@ -36,12 +39,27 @@
             </font>
         </Label>
     </VBox>
-    <Button fx:id="loginButton" prefHeight="35" prefWidth="105" text="login" GridPane.halignment="CENTER"
-            GridPane.rowIndex="2">
-        <font>
-            <Font name="Times New Roman Bold" size="20.0" />
-        </font>
-    </Button>
+    <VBox  spacing="40" GridPane.rowIndex="2" alignment="CENTER">
+        <Button fx:id="loginButton" prefHeight="35" prefWidth="210" text="login" >
+            <font>
+                <Font name="Times New Roman Bold" size="20.0" />
+            </font>
+        </Button>
+        <HBox spacing="20" alignment="CENTER">
+            <Label alignment="CENTER" text="Doesn't have an account?" textAlignment="CENTER">
+                <font>
+                    <Font name="Times New Roman Bold" size="16" />
+                </font>
+            </Label>
+            <Button fx:id="registerButton" prefHeight="35" prefWidth="105" text="register" onAction="#register">
+                <font>
+                    <Font name="Times New Roman Bold" size="20.0" />
+                </font>
+            </Button>
+        </HBox>
+
+
+    </VBox>
 
 
    <columnConstraints>

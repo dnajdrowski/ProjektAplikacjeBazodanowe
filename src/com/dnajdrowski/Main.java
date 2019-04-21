@@ -6,19 +6,23 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Main extends Application {
 
-    private Scene scene;
 
-    private static Connection con = null;
+    private static Scene scene;
+
+    public static Stage xd;
+
+    private Connection con = null;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Layouts/login.fxml"));
+        xd = primaryStage;
+        Parent root = loadFXML("login");
         scene = new Scene(root, 600, 800);
         primaryStage.setTitle("Your Speedway");
         primaryStage.setScene(scene);
@@ -36,7 +40,7 @@ public class Main extends Application {
         disconnect();
     }
 
-    private static void connect() {
+    private void connect() {
 //        try {
 //            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 //            Connection con = DriverManager.getConnection("jdbc:sqlserver://" +
@@ -47,7 +51,7 @@ public class Main extends Application {
 //        }
     }
 
-    private static void disconnect() {
+    private void disconnect() {
         try {
             if(con != null) {
                 con.close();
@@ -55,6 +59,15 @@ public class Main extends Application {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void setRoot(String fxml) throws IOException {
+        scene.setRoot(loadFXML(fxml));
+    }
+
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("Layouts/" + fxml + ".fxml"));
+        return loader.load();
     }
 
     public static void main(String[] args) {

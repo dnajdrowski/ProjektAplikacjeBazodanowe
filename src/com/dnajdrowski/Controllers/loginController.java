@@ -1,8 +1,11 @@
 package com.dnajdrowski.Controllers;
 
+import com.dnajdrowski.Main;
 import com.dnajdrowski.data.DataVariables;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -11,9 +14,7 @@ import javafx.scene.layout.GridPane;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-import java.util.regex.Matcher;
-
-
+import java.io.IOException;
 
 public class loginController {
 
@@ -33,10 +34,19 @@ public class loginController {
     @FXML
     private Button loginButton;
 
+    @FXML
+    private Button registerButton;
+
 
     public void initialize() {
         Platform.runLater(() -> loginGridPane.requestFocus());
         loginButton.setDisable(true);
+    }
+
+    @FXML
+    public void register() throws IOException {
+        Main.setRoot("register");
+
     }
 
     @FXML

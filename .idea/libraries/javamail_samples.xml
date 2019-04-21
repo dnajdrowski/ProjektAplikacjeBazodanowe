@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="javamail-samples">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://C:/Java/javamail-samples" />
+      <root url="file://C:/Java/javamail-samples/client" />
+      <root url="file://C:/Java/javamail-samples/logging" />
+      <root url="file://C:/Java/javamail-samples/outlook" />
+      <root url="file://C:/Java/javamail-samples/webapp/src/classes" />
+      <root url="file://C:/Java/javamail-samples/webapp/src/taglib" />
+    </SOURCES>
+  </library>
+</component>

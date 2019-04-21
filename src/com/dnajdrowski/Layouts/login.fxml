@@ -17,7 +17,7 @@
         <Image url="@../images/login.png" />
     </ImageView>
     <VBox spacing="20" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-        <TextField fx:id="usernameTextField" alignment="CENTER" onKeyTyped="#checkData" prefHeight="30"
+        <TextField fx:id="emailTextField" alignment="CENTER" onKeyTyped="#checkData" prefHeight="30"
                    prefWidth="450" promptText="username">
              <font>
                 <Font name="Times New Roman Bold" size="20.0" />
@@ -30,7 +30,7 @@
             </font>
         </PasswordField>
         <Label fx:id="loginLabel" alignment="CENTER" prefHeight="25" prefWidth="450"
-               text="Please insert username and password" textAlignment="CENTER">
+               text="Please enter your e-mail and password" textAlignment="CENTER">
             <font>
                 <Font name="Times New Roman Bold" size="20.0" />
             </font>

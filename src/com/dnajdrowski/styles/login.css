@@ -5,3 +5,8 @@ GridPane {
 Label {
     -fx-text-fill: firebrick;
 }
+
+TextField, PasswordField, Button {
+    -fx-background-radius: 90;
+    -fx-border-radius: 90;
+}

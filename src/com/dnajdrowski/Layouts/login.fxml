@@ -12,66 +12,53 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.HBox?>
-<GridPane fx:id="loginGridPane" alignment="center" hgap="10" stylesheets="@../styles/login.css"
-          vgap="30" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="com.dnajdrowski.Controllers.loginController" >
+<GridPane fx:id="loginGridPane" alignment="center" hgap="10" stylesheets="@../styles/login.css" vgap="30"
+          xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.dnajdrowski.Controllers.loginController">
     <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0">
-        <Image url="@../images/login.png" />
+        <Image url="@../images/logo.jpg"/>
     </ImageView>
     <VBox spacing="20" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-        <TextField fx:id="emailTextField" alignment="CENTER" onKeyTyped="#checkData" prefHeight="30"
-                   prefWidth="450" promptText="username">
-             <font>
-                <Font name="Times New Roman Bold" size="20.0" />
-             </font>
-        </TextField>
-        <PasswordField fx:id="passwordField" alignment="CENTER" onKeyTyped="#checkData" prefHeight="30"
-                       prefWidth="450" promptText="password">
+        <TextField fx:id="emailTextField" alignment="CENTER" prefHeight="30" prefWidth="450"
+                   onKeyTyped="#checkValidInputPattern" promptText="użytkownik">
             <font>
-                <Font name="Times New Roman Bold" size="20.0" />
+                <Font name="Times New Roman Bold" size="20.0"/>
+            </font>
+        </TextField>
+        <PasswordField fx:id="passwordField" alignment="CENTER" prefHeight="30" prefWidth="450"
+                       onKeyTyped="#checkValidInputPattern" promptText="hasło">
+            <font>
+                <Font name="Times New Roman Bold" size="20.0"/>
             </font>
         </PasswordField>
         <Label fx:id="loginLabel" alignment="CENTER" prefHeight="25" prefWidth="450"
-               text="Please enter your e-mail and password" textAlignment="CENTER">
+               text="Podaj poprawny email oraz hasło" textAlignment="CENTER">
             <font>
-                <Font name="Times New Roman Bold" size="20.0" />
+                <Font name="Times New Roman Bold" size="20.0"/>
             </font>
         </Label>
     </VBox>
-    <VBox  spacing="40" GridPane.rowIndex="2" alignment="CENTER">
-        <Button fx:id="loginButton" prefHeight="35" prefWidth="210" text="login" >
+    <VBox alignment="CENTER" spacing="40" GridPane.rowIndex="2">
+        <Button fx:id="loginButton" prefHeight="35" prefWidth="210" text="zaloguj" onAction="#checkUser">
             <font>
-                <Font name="Times New Roman Bold" size="20.0" />
+                <Font name="Times New Roman Bold" size="20.0"/>
             </font>
         </Button>
-        <HBox spacing="20" alignment="CENTER">
-            <Label alignment="CENTER" text="Doesn't have an account?" textAlignment="CENTER">
-                <font>
-                    <Font name="Times New Roman Bold" size="16" />
-                </font>
-            </Label>
-            <Button fx:id="registerButton" prefHeight="35" prefWidth="105" text="register" onAction="#register">
-                <font>
-                    <Font name="Times New Roman Bold" size="20.0" />
-                </font>
-            </Button>
-        </HBox>
 
 
     </VBox>
 
 
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
+    <columnConstraints>
+        <ColumnConstraints/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+    </rowConstraints>
 
 </GridPane>

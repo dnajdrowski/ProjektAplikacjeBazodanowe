@@ -4,17 +4,16 @@ import com.dnajdrowski.Main;
 import com.dnajdrowski.data.DataVariables;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class loginController {
 
@@ -40,34 +39,55 @@ public class loginController {
 
     public void initialize() {
         Platform.runLater(() -> loginGridPane.requestFocus());
-        loginButton.setDisable(true);
+        loginButton.setDisable(false);
+        emailTextField.setText("bartol04@gmail.com");
+        passwordField.setText("Danielek9898!!");
     }
 
     @FXML
-    public void register() throws IOException {
-        Main.setRoot("register");
+    public void checkUser() {
+        new Thread(() -> {
+            checkUserType(DataVariables.TABLE_WLASCICIEL, "userpanel");
+            checkUserType(DataVariables.TABLE_LEKARZ, "doctorpanel");
+            checkUserType(DataVariables.TABLE_RECEPCJONISTA, "receptionistpanel");
+            if(Main.stage.getWidth() != 800) {
+                Platform.runLater(() -> {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.initOwner(Main.stage);
+                    alert.setResizable(false);
+                    alert.initModality(Modality.APPLICATION_MODAL);
+                    alert.setTitle("Brak użytkownika");
+                    alert.setContentText("Użytkownik o podanych danych nie istnieje!\nWprowadź prawidłowe dane.");
+                    alert.getDialogPane().setStyle("-fx-font-size: 14; -fx-font-family: 'Times New Roman Bold'");
+                    alert.setHeaderText(null);
+                    alert.show();
+                });
+            }
 
+        }).start();
     }
 
+
+    //sprawdzenie, czy wpisane dane pasuja do regexow
     @FXML
-    public void checkData() {
+    public void checkValidInputPattern() {
         String email = emailTextField.getText();
         String password = passwordField.getText();
         String message = "";
 
 
-        if (isValidEmail(email) && isValidPassword(password)) {
+        if (isValidEmail(email) && isValidPassword()) {
             loginLabel.setStyle("-fx-text-fill: green");
-            message = "Correct data! Please click button below to log in.";
+            message = "Prawidłowe dane! Kliknij przycisk, aby zalogować.";
             loginButton.setDisable(false);
         } else {
             loginLabel.setStyle("-fx-text-fill: firebrick");
             if ((email.isEmpty() && password.isEmpty()) || (!isValidEmail(email) && !isValidEmail(password))) {
-                message = "Please enter your e-mail and password";
+                message = "Podaj poprawny email oraz hasło";
             } else if (!isValidEmail(email) && isValidEmail(password)) {
-                message = "Please enter your e-mail adress";
+                message = "Podaj poprawny email";
             } else if (isValidEmail(email) && !isValidEmail(password)) {
-                message = "Please enter your password";
+                message = "Podaj poprawne hasło";
             }
             loginButton.setDisable(true);
         }
@@ -75,6 +95,7 @@ public class loginController {
 
     }
 
+    //sprawdzenie poprawnosci maila
     private boolean isValidEmail(String email) {
         boolean result = true;
         try {
@@ -86,12 +107,50 @@ public class loginController {
         return result;
     }
 
-    private boolean isValidPassword(String password) {
+    //sprawdzenie poprawnosci hasla
+    private boolean isValidPassword() {
         boolean result = true;
-        if(!DataVariables.passwordPattern.matcher(passwordField.getText()).matches()) {
+        if (!DataVariables.passwordPattern.matcher(passwordField.getText()).matches()) {
             result = false;
         }
         return result;
+    }
+
+
+    //sprawdzenie, czy uzytkownik jaki uzytkownik sie loguje oraz poprawnosc danych logowania
+    private void checkUserType(String tableName, String panel) {
+        try {
+            PreparedStatement statement = Main.con.prepareStatement(DataVariables.checkWlasiciel.replace("$tableName",
+                                            tableName));
+            statement.setString(1, emailTextField.getText());
+            ResultSet result = statement.executeQuery();
+            if(result.next() && result.getString("password").equals(passwordField.getText())){
+                Main.setRoot(panel);
+                Main.stage.setWidth(800);
+                Main.stage.setHeight(600);
+                Main.stage.centerOnScreen();
+                Platform.runLater(()->{
+                    try {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.initOwner(Main.stage);
+                        alert.setResizable(false);
+                        alert.initModality(Modality.APPLICATION_MODAL);
+                        alert.setTitle("Pomyślnie zalogowano");
+                        alert.getDialogPane().setStyle("-fx-font-size: 16; -fx-font-family: 'Times New Roman Bold'");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Witaj " + result.getString("imie") + " " +
+                                result.getString("nazwisko") + "!\nZostałeś zalogowany jako " +
+                                tableName + ".");
+                        alert.show();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

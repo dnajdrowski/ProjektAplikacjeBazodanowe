@@ -1,5 +1,5 @@
 GridPane {
-    -fx-background-color: darkturquoise;
+    -fx-background-color: white;
 }
 
 Label {
@@ -9,4 +9,8 @@ Label {
 TextField, PasswordField, Button {
     -fx-background-radius: 90;
     -fx-border-radius: 90;
+    -fx-text-fill: #14668A;
 }
+
+
+

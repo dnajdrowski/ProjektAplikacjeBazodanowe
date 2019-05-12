@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/recepcionist.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <HBox>
+        <VBox prefHeight="800.0" prefWidth="229.0" HBox.hgrow="ALWAYS">
+            <ImageView>
+            <image>
+               <Image url="@../images/recepcjonista.jpg" />
+            </image></ImageView>
+            <Button  prefHeight="144.0" prefWidth="229.0" text="DODAJ WŁASCICIELA">
+            </Button>
+            <Button  prefHeight="144.0" prefWidth="229.0" text="LISTA WŁASCICIELI">
+            </Button>
+            <Button  prefHeight="144.0" prefWidth="229.0" text="WYLOGUJ">
+            </Button>
+        </VBox>
+    </HBox>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>

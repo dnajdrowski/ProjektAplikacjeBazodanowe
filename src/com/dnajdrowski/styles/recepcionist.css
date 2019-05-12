@@ -1,0 +1,14 @@
+Button {
+    -fx-background-color: white;
+    -fx-font-family: "Times New Roman Bold";
+    -fx-font-size: 15;
+    -fx-border-color: #14668A;
+    -fx-border-width: 4 0 0 0;
+    -fx-text-fill: #14668A;
+}
+
+Button:hover {
+    -fx-background-color: light-grey;
+    -fx-font-size: 17;
+}
+

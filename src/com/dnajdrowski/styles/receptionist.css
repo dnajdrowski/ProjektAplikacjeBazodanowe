@@ -1,0 +1,45 @@
+#menuButton, #logoutButton {
+    -fx-background-color: white;
+    -fx-font-family: "Times New Roman Bold";
+    -fx-font-size: 15;
+    -fx-border-color: #14668A;
+    -fx-border-width: 4 4 0 0;
+    -fx-text-fill: #14668A;
+}
+
+#menuButton:hover {
+    -fx-background-color: lightgrey;
+    -fx-font-size: 17;
+}
+
+#menuButton:focused {
+    -fx-border-width: 4 0 0 0;
+    -fx-background-color: lightgrey;
+    -fx-font-size: 17;
+}
+
+#logoutButton:hover, #logoutButton:focused {
+    -fx-background-color: lightgrey;
+    -fx-font-size: 17;
+}
+
+
+AnchorPane {
+    -fx-background-color: lightgrey;
+    -fx-text-fill: #14668A;
+}
+
+Label {
+    -fx-text-fill: #14668A;
+}
+
+
+
+
+
+
+
+
+
+
+

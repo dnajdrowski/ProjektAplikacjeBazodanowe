@@ -1,25 +1,21 @@
 package com.dnajdrowski.Controllers;
 
 import com.dnajdrowski.Main;
-import com.dnajdrowski.data.DataVariables;
-import com.dnajdrowski.data.User;
+import com.dnajdrowski.DataStructure.DataVariables;
+import com.dnajdrowski.Classes.MyStringConverter;
+import com.dnajdrowski.Classes.User;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.util.StringConverter;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-import java.io.IOException;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Optional;
+import static com.dnajdrowski.DataStructure.Functions.*;
 
 public class receptionistController {
 
@@ -28,7 +24,7 @@ public class receptionistController {
     private AnchorPane anchorAdd, anchorList;
 
     @FXML
-    private Button btnAdd, btnList;
+    private Button btnAdd, btnList, btnLogout;
 
     @FXML
     private TextField imieTextField, nazwiskoTextField, emailTextField, peselTextField, numberTextField, phoneTextField,
@@ -40,37 +36,37 @@ public class receptionistController {
     @FXML
     private DatePicker datePicker;
 
-    private List<User> userList;
+
+
+
+    @FXML
+    private TableView<User> tableView;
+
+    private static ObservableList<User> userList;
+
+    private ArrayList<Button> buttons;
 
 
 
     @FXML
     public void initialize() {
-        datePicker.setConverter(new StringConverter<LocalDate>() {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        datePicker.setConverter(new MyStringConverter());
 
-            @Override
-            public String toString(LocalDate date) {
-                if (date != null) {
-                    return dateFormatter.format(date);
-                } else {
-                    return "";
-                }
-            }
+        buttons = new ArrayList<>(Arrays.asList(btnAdd, btnLogout, btnList));
+        userList = FXCollections.observableArrayList();
+        btnAdd.fire();
 
-            @Override
-            public LocalDate fromString(String string) {
-                if (string != null && !string.isEmpty()) {
-                    return LocalDate.parse(string, dateFormatter);
-                } else {
-                    return null;
-                }
-            }
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem deleteContextItem = new MenuItem("Usuń");
+        deleteContextItem.setOnAction( event -> {
+            User user = tableView.getSelectionModel().getSelectedItem();
+            deleteUser(user,tableView);
         });
 
+        contextMenu.getItems().addAll(deleteContextItem);
+        tableView.setContextMenu(contextMenu);
+
     }
-
-
 
 
 
@@ -126,14 +122,9 @@ public class receptionistController {
     }
 
 
-    @FXML
-    public void getUsers() {
-
-    }
-
     private String checkDetails() {
-        char dotChar = '\u25CF';
         String errorMessage = "";
+        char dotChar = '\u25CF';
 
         boolean validEmail = DataVariables.isValidEmail(emailTextField.getText());
         boolean validPassword = DataVariables.isValidToRegex(passwordField.getText(), DataVariables.passwordPattern);
@@ -181,11 +172,17 @@ public class receptionistController {
     }
 
     @FXML
-    public void checkActivity(ActionEvent event) {
-        if (event.getSource() == btnAdd) {
+    public void checkActivity(ActionEvent e) {
+        if (e.getSource() == btnAdd) {
             anchorAdd.toFront();
-        } else if (event.getSource() == btnList) {
+            keepButtonFocused(btnAdd, buttons);
+        } else if (e.getSource() == btnList) {
             anchorList.toFront();
+            keepButtonFocused(btnList, buttons);
+            getUsers(null, userList, tableView);
+        } else if(e.getSource() == btnLogout) {
+            logout(btnAdd);
+            keepButtonFocused(btnAdd, buttons);
         }
     }
 
@@ -204,27 +201,6 @@ public class receptionistController {
         codeTextField.clear();
     }
 
-    @FXML
-    public void logout() {
-        try {
-            ButtonType buttonYes = new ButtonType("Tak", ButtonBar.ButtonData.OK_DONE);
-            ButtonType buttonNo = new ButtonType("Nie", ButtonBar.ButtonData.CANCEL_CLOSE);
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", buttonYes, buttonNo);
-            DataVariables.setAlert(alert, "Wylogowanie","Czy na pewno chcesz się wylogować?");
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && (result.get() == buttonYes)) {
-                Main.setRoot("login");
-                Main.stage.setWidth(600);
-                Main.stage.setHeight(800);
-                Main.stage.centerOnScreen();
-            } else {
-                btnAdd.requestFocus();
-            }
-
-        } catch (IOException e) {
-            e.getMessage();
-        }
-    }
 
 
 }

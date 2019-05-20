@@ -1,7 +1,7 @@
 package com.dnajdrowski.Controllers;
 
 import com.dnajdrowski.Main;
-import com.dnajdrowski.data.DataVariables;
+import com.dnajdrowski.DataStructure.DataVariables;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -35,8 +35,8 @@ public class loginController {
     public void initialize() {
         Platform.runLater(() -> loginGridPane.requestFocus());
         loginButton.setDisable(false);
-        emailTextField.setText("pradeczek19@wp.pl");
-        passwordField.setText("Prawdaprada19%");
+        emailTextField.setText("storczykowie4c@gmail.com");
+        passwordField.setText("Storczyk1337$");
         checkValidInputPattern();
     }
 
@@ -97,6 +97,7 @@ public class loginController {
             statement.setString(1, emailTextField.getText());
             ResultSet result = statement.executeQuery();
             if (result.next() && result.getString("password").equals(passwordField.getText())) {
+                DataVariables.email = emailTextField.getText();
                 Main.setRoot(panel);
                 Main.stage.setWidth(800);
                 Main.stage.setHeight(600);

@@ -12,11 +12,6 @@
     -fx-font-size: 17;
 }
 
-#menuButton:focused {
-    -fx-border-width: 4 0 0 0;
-    -fx-background-color: lightgrey;
-    -fx-font-size: 17;
-}
 
 #logoutButton:hover, #logoutButton:focused {
     -fx-background-color: lightgrey;
@@ -31,6 +26,26 @@ AnchorPane {
 
 Label {
     -fx-text-fill: #14668A;
+}
+
+.table-view .table-cell{
+    -fx-background-color: lightgrey;
+}
+
+.table-column {
+    -fx-alignment: CENTER;
+}
+
+.table-view {
+    -fx-border-width: 0;
+}
+
+.choice-box .context-menu {
+    -fx-pref-width: 120;
+}
+
+#vaccinationTypeChoiceBox .context-menu {
+    -fx-pref-width: 170;
 }
 
 

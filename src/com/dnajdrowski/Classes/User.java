@@ -11,10 +11,10 @@ public class User {
     private String phoneNumber;
     private String peselNumber;
     private Date birthDate;
-    private Adress adress;
+    private Address address;
 
 
-    public User(int id, String firstName, String lastName, String email, String password, String phoneNumber, String peselNumber, Date birthDate, Adress adress) {
+    public User(int id, String firstName, String lastName, String email, String password, String phoneNumber, String peselNumber, Date birthDate, Address address) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -23,7 +23,7 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.peselNumber = peselNumber;
         this.birthDate = birthDate;
-        this.adress = adress;
+        this.address = address;
     }
 
     public User(int id, String firstName, String lastName) {
@@ -96,12 +96,12 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public Adress getAdress() {
-        return adress;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAdress(Adress adress) {
-        this.adress = adress;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 //    private final SimpleIntegerProperty id = new SimpleIntegerProperty();
 //    private final SimpleStringProperty firstName = new SimpleStringProperty("");
@@ -111,9 +111,9 @@ public class User {
 //    private final SimpleStringProperty phoneNumber = new SimpleStringProperty("");
 //    private final SimpleStringProperty peselNumber = new SimpleStringProperty("");
 //    private Date birthDate;
-//    private Adress adress;
+//    private Address address;
 //
-//    public User(int id,String firstName, String lastName, String email, String password, String phoneNumber, String peselNumber, Date birthDate, Adress adress) {
+//    public User(int id,String firstName, String lastName, String email, String password, String phoneNumber, String peselNumber, Date birthDate, Address address) {
 //        this.setId(id);
 //        this.setFirstName(firstName);
 //        this.setLastName(lastName);
@@ -122,7 +122,7 @@ public class User {
 //        this.setPhoneNumber(phoneNumber);
 //        this.setPeselNumber(peselNumber);
 //        this.birthDate = birthDate;
-//        this.adress = adress;
+//        this.address = address;
 //    }
 //
 //    public int getId() {
@@ -217,11 +217,11 @@ public class User {
 //        this.birthDate = birthDate;
 //    }
 //
-//    public Adress getAdress() {
-//        return adress;
+//    public Address getAddress() {
+//        return address;
 //    }
 //
-//    public void setAdress(Adress adress) {
-//        this.adress = adress;
+//    public void setAddress(Address address) {
+//        this.address = address;
 //    }
 }

@@ -12,9 +12,9 @@ public class Doctor {
     private String password;
     private Date birthDate;
     private String specialization;
-    private Adress adress;
+    private Address address;
 
-    public Doctor(int id, String firstName, String lastName, String email,String password, String phoneNumber, String peselNumber, Date birthDate, String specialization, Adress adress) {
+    public Doctor(int id, String firstName, String lastName, String email,String password, String phoneNumber, String peselNumber, Date birthDate, String specialization, Address address) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -24,7 +24,7 @@ public class Doctor {
         this.password = password;
         this.birthDate = birthDate;
         this.specialization = specialization;
-        this.adress = adress;
+        this.address = address;
     }
 
     public Doctor(int id, String firstName, String lastName) {
@@ -105,12 +105,12 @@ public class Doctor {
         this.specialization = specialization;
     }
 
-    public Adress getAdress() {
-        return adress;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAdress(Adress adress) {
-        this.adress = adress;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override

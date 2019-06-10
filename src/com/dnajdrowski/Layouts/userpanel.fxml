@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.control.TextField?>
-<HBox prefHeight="600.0" prefWidth="793.0" stylesheets="@../styles/panel.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dnajdrowski.Controllers.userController">
+<HBox fx:id="panelHBox" prefHeight="600.0" prefWidth="793.0" stylesheets="@../styles/panel.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dnajdrowski.Controllers.UserController">
     <VBox>
         <VBox style="-fx-border-width: 0 4 0 0; -fx-border-color: #14668A;">
             <ImageView fitHeight="163.0" fitWidth="225.0">
-                <image>
                     <Image url="@../images/wlasciciel.jpg" />
-                </image>
             </ImageView>
         </VBox>
+        <Button id="menuButton" fx:id="btnMyDetails" onAction="#checkActivity" prefHeight="72" prefWidth="229.0" text="MOJE DANE">
+        </Button>
         <Button id="menuButton" fx:id="btnAdd" onAction="#checkActivity" prefHeight="72" prefWidth="229.0" text="DODAJ PUPILA">
         </Button>
         <Button id="menuButton" fx:id="btnMyPets" onAction="#checkActivity" prefHeight="72" prefWidth="229.0" text="MOJE PUPILE">
@@ -32,209 +23,11 @@
         </Button>
         <Button id="menuButton" fx:id="btnAddAppointment" onAction="#checkActivity" prefHeight="72" prefWidth="229.0" text="ZAPISZ NA WIZYTE">
         </Button>
-        <Button id="menuButton" fx:id="btnMyVaccinations" onAction="#checkActivity" layoutX="10.0" layoutY="461.0" prefHeight="75.0" prefWidth="229.0" text="MOJE SZCZEPIENIA">
+        <Button id="menuButton" fx:id="btnMyVaccinations" layoutX="10.0" layoutY="461.0" onAction="#checkActivity" prefHeight="75.0" prefWidth="229.0" text="MOJE SZCZEPIENIA">
         </Button>
         <Button id="menuButton" fx:id="btnAddVaccination" onAction="#checkActivity" prefHeight="75.0" prefWidth="229.0" text="ZAPISZ NA SZCZEPIENIE">
         </Button>
         <Button id="menuButton" fx:id="btnLogout" onAction="#checkActivity" prefHeight="72" prefWidth="229.0" text="WYLOGUJ">
         </Button>
     </VBox>
-    <AnchorPane prefHeight="600.0" prefWidth="571" stylesheets="@../styles/anchorpane.css">
-        <AnchorPane fx:id="anchorAdd" prefHeight="600.0" prefWidth="571">
-            <Label alignment="CENTER" layoutX="53.0" layoutY="72.0" prefHeight="51.0" prefWidth="458.0" text="DANE PUPILA">
-                <font>
-                    <Font name="Times New Roman Bold" size="40.0" />
-                </font>
-            </Label>
-            <Label layoutX="180.0" layoutY="162.0" prefHeight="17.0" prefWidth="68.0" text="Imie:">
-                <font>
-                    <Font name="Times New Roman Bold" size="21.0" />
-                </font>
-            </Label>
-            <Label layoutX="180.0" layoutY="214.0" prefHeight="17.0" prefWidth="68.0" text="Płeć:">
-                <font>
-                    <Font name="Times New Roman Bold" size="21.0" />
-                </font>
-            </Label>
-            <Label layoutX="78.0" layoutY="263.0" prefHeight="24.0" prefWidth="150.0" text="Data urodzenia:">
-                <font>
-                    <Font name="Times New Roman Bold" size="21.0" />
-                </font>
-            </Label>
-            <Label layoutX="139.0" layoutY="309.0" prefHeight="24.0" prefWidth="150.0" text="Gatunek:">
-                <font>
-                    <Font name="Times New Roman Bold" size="21.0" />
-                </font>
-            </Label>
-            <ChoiceBox fx:id="sexChoiceBox" layoutX="248.0" layoutY="214.0" prefHeight="25.0" prefWidth="119.0" />
-            <TextField fx:id="nameTextField" layoutX="243.0" layoutY="162.0" prefHeight="25.0" prefWidth="126.0" />
-            <ChoiceBox fx:id="typeChoiceBox" layoutX="248.0" layoutY="309.0" prefHeight="25.0" prefWidth="119.0" />
-            <DatePicker fx:id="datePickerPet" layoutX="248.0" layoutY="265.0" prefHeight="24.0" prefWidth="119.0" />
-            <Button layoutX="257.0" layoutY="364.0" mnemonicParsing="false" onAction="#addPet" prefHeight="39.0" prefWidth="119.0" text="DODAJ" />
-            <Button layoutX="83.0" layoutY="371.0" mnemonicParsing="false" onAction="#clearAddPet" prefHeight="32.0" prefWidth="140.0" text="WYCZYŚĆ DANE" />
-        </AnchorPane>
-        <AnchorPane fx:id="anchorPetsList" prefHeight="600.0" prefWidth="571">
-            <TableView fx:id="tableViewPets" prefHeight="600.0" prefWidth="571">
-                <columnResizePolicy>
-                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                </columnResizePolicy>
-                <columns>
-                    <TableColumn text="Imie">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="name" />
-                        </cellValueFactory>
-                    </TableColumn>
-                    <TableColumn text="Płeć">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="sex" />
-                        </cellValueFactory>
-                    </TableColumn>
-                    <TableColumn text="Data urodzenia">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="birthDate" />
-                        </cellValueFactory>
-                    </TableColumn>
-                    <TableColumn text="Gatunek">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="typeString" />
-                        </cellValueFactory>
-                    </TableColumn>
-                </columns>
-            </TableView>
-        </AnchorPane>
-        <AnchorPane fx:id="anchorAppointmentsList" prefHeight="600.0" prefWidth="571">
-            <TableView fx:id="tableViewAppointments" prefHeight="600.0" prefWidth="571">
-                <columnResizePolicy>
-                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                </columnResizePolicy>
-                <columns>
-                    <TableColumn text="Imie pupila">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="petName" />
-                        </cellValueFactory>
-                    </TableColumn>
-                    <TableColumn text="Data wizyty">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="appointmentDate" />
-                        </cellValueFactory>
-                    </TableColumn>
-                    <TableColumn text="Cel wizyty">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="purpose" />
-                        </cellValueFactory>
-                    </TableColumn>
-                    <TableColumn text="Lekarz">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="doctorFullName" />
-                        </cellValueFactory>
-                    </TableColumn>
-                    <TableColumn text="Cena">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="price" />
-                        </cellValueFactory>
-                    </TableColumn>
-                </columns>
-            </TableView>
-        </AnchorPane>
-        <AnchorPane fx:id="anchorAddAppointment" prefHeight="600.0" prefWidth="571">
-            <Label alignment="CENTER" layoutX="53.0" layoutY="72.0" prefHeight="51.0" prefWidth="458.0" text="ZAPISZ NA WIZYTE">
-            <font>
-            <Font name="Times New Roman Bold" size="40.0" />
-            </font>
-            </Label>
-            <Label layoutX="111.0" layoutY="162.0" prefHeight="24.0" prefWidth="137.0" text="Data wizyty:">
-            <font>
-            <Font name="Times New Roman Bold" size="21.0" />
-            </font>
-            </Label>
-            <Label layoutX="171.0" layoutY="214.0" prefHeight="24.0" prefWidth="77.0" text="Pupil:">
-            <font>
-            <Font name="Times New Roman Bold" size="21.0" />
-            </font>
-            </Label>
-            <Label layoutX="151.0" layoutY="263.0" prefHeight="24.0" prefWidth="77.0" text="Lekarz:">
-            <font>
-            <Font name="Times New Roman Bold" size="21.0" />
-            </font>
-            </Label>
-            <Label layoutX="122.0" layoutY="309.0" prefHeight="24.0" prefWidth="167.0" text="Cel wizyty:">
-            <font>
-            <Font name="Times New Roman Bold" size="21.0" />
-            </font>
-            </Label>
-         <DatePicker fx:id="datePickerAppointment" layoutX="241.0" layoutY="163.0" prefHeight="24.0" prefWidth="137.0" />
-         <ChoiceBox fx:id="petAppointmentChoiceBox" layoutX="241.0" layoutY="214.0" prefHeight="25.0" prefWidth="137.0" />
-         <ChoiceBox fx:id="purposeChoiceBox" layoutX="241.0" layoutY="309.0" prefHeight="25.0" prefWidth="137.0" />
-         <ChoiceBox fx:id="doctorAppointmentChoiceBox" layoutX="241.0" layoutY="265.0" prefHeight="25.0" prefWidth="137.0" />
-            <Button layoutX="257.0" layoutY="364.0" mnemonicParsing="false" onAction="#addAppointment" prefHeight="39.0" prefWidth="119.0" text="DODAJ" />
-            <Button layoutX="83.0" layoutY="371.0" mnemonicParsing="false" onAction="#clearAddAppointment" prefHeight="32.0" prefWidth="140.0" text="WYCZYŚĆ DANE" />
-        </AnchorPane>
-        <AnchorPane fx:id="anchorVaccinationsList" prefHeight="600.0" prefWidth="571">
-            <TableView fx:id="tableViewVaccinations" prefHeight="600.0" prefWidth="571">
-                <columnResizePolicy>
-                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                </columnResizePolicy>
-                <columns>
-                    <TableColumn text="Imie pupila">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="petName" />
-                        </cellValueFactory>
-                    </TableColumn>
-                    <TableColumn text="Data wizyty">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="vaccinationDate" />
-                        </cellValueFactory>
-                    </TableColumn>
-                    <TableColumn text="Rodzaj szczepienia">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="vaccinationTypeString" />
-                        </cellValueFactory>
-                    </TableColumn>
-                    <TableColumn text="Lekarz">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="doctorFullName" />
-                        </cellValueFactory>
-                    </TableColumn>
-                    <TableColumn text="Cena">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="price" />
-                        </cellValueFactory>
-                    </TableColumn>
-                </columns>
-            </TableView>
-        </AnchorPane>
-        <AnchorPane fx:id="anchorAddVaccination" prefHeight="600.0" prefWidth="571">
-            <Label alignment="CENTER" layoutX="38.0" layoutY="72.0" prefHeight="51.0" prefWidth="496.0" text="ZAPISZ NA SZCZEPIENIE">
-                <font>
-                    <Font name="Times New Roman Bold" size="40.0" />
-                </font>
-            </Label>
-            <Label layoutX="71.0" layoutY="162.0" prefHeight="24.0" prefWidth="177.0" text="Data szczepienia:">
-                <font>
-                    <Font name="Times New Roman Bold" size="21.0" />
-                </font>
-            </Label>
-            <Label layoutX="171.0" layoutY="214.0" prefHeight="24.0" prefWidth="77.0" text="Pupil:">
-                <font>
-                    <Font name="Times New Roman Bold" size="21.0" />
-                </font>
-            </Label>
-            <Label layoutX="151.0" layoutY="263.0" prefHeight="24.0" prefWidth="77.0" text="Lekarz:">
-                <font>
-                    <Font name="Times New Roman Bold" size="21.0" />
-                </font>
-            </Label>
-            <Label layoutX="77.0" layoutY="309.0" prefHeight="24.0" prefWidth="212.0" text="Typ szczepienia:">
-                <font>
-                    <Font name="Times New Roman Bold" size="21.0" />
-                </font>
-            </Label>
-            <DatePicker fx:id="datePickerVaccination" layoutX="241.0" layoutY="163.0" prefHeight="24.0" prefWidth="137.0" />
-            <ChoiceBox fx:id="petVaccinationChoiceBox" layoutX="241.0" layoutY="214.0" prefHeight="25.0" prefWidth="137.0" />
-            <ChoiceBox fx:id="vaccinationTypeChoiceBox" layoutX="241.0" layoutY="309.0" prefHeight="25.0" prefWidth="137.0" />
-            <ChoiceBox fx:id="doctorVaccinationChoiceBox" layoutX="241.0" layoutY="265.0" prefHeight="25.0" prefWidth="137.0" />
-            <Button layoutX="257.0" layoutY="364.0" mnemonicParsing="false" onAction="#addVaccination" prefHeight="39.0" prefWidth="119.0" text="DODAJ" />
-            <Button layoutX="83.0" layoutY="371.0" mnemonicParsing="false" onAction="#clearAddVaccination" prefHeight="32.0" prefWidth="140.0" text="WYCZYŚĆ DANE" />
-        </AnchorPane>
-    </AnchorPane>
 </HBox>

@@ -1,16 +1,20 @@
 package com.dnajdrowski.DataStructure;
 
 import com.dnajdrowski.Classes.*;
+import com.dnajdrowski.Controllers.UserDetailsController;
 import com.dnajdrowski.Main;
 import com.dnajdrowski.Services.*;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class Functions {
@@ -24,6 +28,7 @@ public class Functions {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && (result.get() == buttonYes)) {
                 DataVariables.email = "";
+                DataVariables.userType = "";
                 Main.setRoot("login");
                 Main.stage.setWidth(600);
                 Main.stage.setHeight(800);
@@ -91,6 +96,112 @@ public class Functions {
         }
     }
 
+    public static void deleteVaccinationType(VaccinationType type,  TableView<VaccinationType> tv) {
+        if(type != null) {
+            tv.getItems().remove(type);
+            new Thread(()->{
+                try {
+                    PreparedStatement deletePetStatement = Main.con.prepareStatement(DataVariables.DELETE_VACCINATION_TYPE);
+                    deletePetStatement.setInt(1, type.getId());
+                    deletePetStatement.execute();
+                    Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        DataVariables.setAlert(alert, "Usunięcie", "Pomyślnie usunięto " + type.getName() + ".");
+                        alert.show();
+                    });
+                } catch (SQLException e) {
+                    e.getMessage();
+                }
+            }).start();
+        }
+    }
+
+    public static void deleteType(Type type,  TableView<Type> tv) {
+        if(type != null) {
+            tv.getItems().remove(type);
+            new Thread(()->{
+                try {
+                    PreparedStatement deletePetStatement = Main.con.prepareStatement(DataVariables.DELETE_TYPE);
+                    deletePetStatement.setInt(1, type.getId());
+                    deletePetStatement.execute();
+                    Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        DataVariables.setAlert(alert, "Usunięcie", "Pomyślnie usunięto " + type.getName() + ".");
+                        alert.show();
+                    });
+                } catch (SQLException e) {
+                    e.getMessage();
+                }
+            }).start();
+        }
+    }
+
+    public static void deleteSicnkess(Sickness type,  TableView<Sickness> tv) {
+        if(type != null) {
+            tv.getItems().remove(type);
+            new Thread(()->{
+                try {
+                    PreparedStatement deletePetStatement = Main.con.prepareStatement(DataVariables.DELETE_SICKNESS);
+                    deletePetStatement.setInt(1, type.getId());
+                    deletePetStatement.execute();
+                    Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        DataVariables.setAlert(alert, "Usunięcie", "Pomyślnie usunięto " + type.getName() + ".");
+                        alert.show();
+                    });
+                } catch (SQLException e) {
+                    e.getMessage();
+                }
+            }).start();
+        }
+    }
+
+    public static void deleteMedicine(Medicine type,  TableView<Medicine> tv) {
+        if(type != null) {
+            tv.getItems().remove(type);
+            new Thread(()->{
+                try {
+                    PreparedStatement deletePetStatement = Main.con.prepareStatement(DataVariables.DELETE_MEDICINE);
+                    deletePetStatement.setInt(1, type.getId());
+                    deletePetStatement.execute();
+                    Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        DataVariables.setAlert(alert, "Usunięcie", "Pomyślnie usunięto " + type.getName() + ".");
+                        alert.show();
+                    });
+                } catch (SQLException e) {
+                    e.getMessage();
+                }
+            }).start();
+        }
+    }
+
+    public static void updateAppointment(Appointment appointment, String query, String result) {
+        if(appointment != null) {
+            new Thread(()->{
+                try {
+                    PreparedStatement updateAppointmentStatement = Main.con.prepareStatement(query);
+
+                    if(query.equals(DataVariables.UPDATE_MEDICINE_APPOINTMENT) || query.equals(DataVariables.UPDATE_SICKNESS_APPOINTMENT)){
+                        updateAppointmentStatement.setInt(1, Integer.parseInt(result));
+                    } else {
+                            updateAppointmentStatement.setDouble(1, Double.parseDouble(result));
+                            appointment.setPrice(Double.parseDouble(result));
+                    }
+                    updateAppointmentStatement.setInt(2, appointment.getId());
+                    updateAppointmentStatement.execute();
+                    Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        DataVariables.setAlert(alert, "Edycja", "Pomyślnie edytowano wizytę.");
+                        alert.show();
+                    });
+                } catch (SQLException e) {
+                    e.getMessage();
+                }
+            }).start();
+        }
+    }
+
     public static void deleteAppointment(Appointment appointment, TableView<Appointment> tableView) {
         if(appointment != null) {
             tableView.getItems().remove(appointment);
@@ -135,11 +246,10 @@ public class Functions {
         }
     }
 
-    public static void getVaccinations(String email, ObservableList<Vaccination> vaccinationsList,
-                                       TableView<Vaccination> tableView) {
+    public static void getVaccinations(String email, TableView<Vaccination> tableView) {
 
-        if (!vaccinationsList.isEmpty()) {
-            vaccinationsList.clear();
+        if (!tableView.getItems().isEmpty()) {
+            tableView.getItems().clear();
         }
 
         VaccinationService vaccinationService;
@@ -151,16 +261,16 @@ public class Functions {
         vaccinationService.start();
 
         vaccinationService.setOnSucceeded(e -> {
-            vaccinationsList.setAll(vaccinationService.getValue());
-            tableView.setItems(vaccinationsList);
+            tableView.setItems(vaccinationService.getValue());
+            tableView.setVisible(true);
         });
     }
 
-    public static void getPets(int id_user, ObservableList<Pet> petsList, TableView<Pet> tableView,
-                               ChoiceBox<Pet> petVaccinationChoiceBox, ChoiceBox<Pet> petAppointmentChoiceBox) {
+    public static void getPets(int id_user, TableView<Pet> tableView,
+                               ChoiceBox<Pet> petChoiceBox) {
 
-        if (!petsList.isEmpty()) {
-            petsList.clear();
+        if ((tableView != null ) && (!tableView.getItems().isEmpty())) {
+            tableView.getItems().clear();
         }
 
 
@@ -174,74 +284,117 @@ public class Functions {
         petService.start();
 
         petService.setOnSucceeded(e -> {
-            petsList.setAll(petService.getValue());
-            tableView.setItems(petsList);
-            if (petVaccinationChoiceBox != null) {
-                petVaccinationChoiceBox.setItems(petsList);
+            if(tableView != null) {
+                tableView.setItems(petService.getValue());
+                tableView.setVisible(true);
             }
-            if (petAppointmentChoiceBox != null) {
-                petAppointmentChoiceBox.setItems(petsList);
+            if (petChoiceBox != null) {
+                petChoiceBox.setItems(petService.getValue());
             }
         });
 
     }
 
-    public static void getVaccinationTypes(ObservableList<VaccinationType> vaccinationTypesList,
-                                           ChoiceBox<VaccinationType> vaccinationTypeChoiceBox) {
+    public static void getVaccinationTypes(ChoiceBox<VaccinationType> vaccinationTypeChoiceBox) {
 
-        if (!vaccinationTypesList.isEmpty()) {
-            vaccinationTypesList.clear();
+        if (!vaccinationTypeChoiceBox.getItems().isEmpty()) {
+            vaccinationTypeChoiceBox.getItems().clear();
         }
 
         VaccinationTypeService vaccinationTypeService = new VaccinationTypeService();
         vaccinationTypeService.start();
 
-        vaccinationTypeService.setOnSucceeded(e -> {
-            vaccinationTypesList.setAll(vaccinationTypeService.getValue());
-            vaccinationTypeChoiceBox.setItems(vaccinationTypesList);
+        vaccinationTypeService.setOnSucceeded(e ->
+                vaccinationTypeChoiceBox.setItems(vaccinationTypeService.getValue()));
+    }
+
+    public static void getVaccinationTypes(TableView vaccinationTypeChoiceBox) {
+
+        if (!vaccinationTypeChoiceBox.getItems().isEmpty()) {
+            vaccinationTypeChoiceBox.getItems().clear();
+        }
+
+        VaccinationTypeService vaccinationTypeService = new VaccinationTypeService();
+        vaccinationTypeService.start();
+
+        vaccinationTypeService.setOnSucceeded(e ->
+                vaccinationTypeChoiceBox.setItems(vaccinationTypeService.getValue()));
+    }
+
+    public static void getSicknesses(ObservableList<Sickness> sicknessesList) {
+
+        if (!sicknessesList.isEmpty()) {
+            sicknessesList.clear();
+        }
+
+        SicknessService sicknessService = new SicknessService();
+        sicknessService.start();
+
+        sicknessService.setOnSucceeded(e -> {
+            sicknessesList.setAll(sicknessService.getValue());
         });
     }
 
-    public static void getTypes(ObservableList<Type> typesList, ChoiceBox<Type> typeChoiceBox) {
-        if (!typesList.isEmpty()) {
-            typesList.clear();
+    public static void getMedicines(ObservableList<Medicine> medicinesList) {
+
+        if (!medicinesList.isEmpty()) {
+            medicinesList.clear();
+        }
+
+        MedicineService medicineService = new MedicineService();
+        medicineService.start();
+
+        medicineService.setOnSucceeded(e -> {
+            medicinesList.setAll(medicineService.getValue());
+        });
+    }
+
+    public static void getTypes(ChoiceBox<Type> typeChoiceBox) {
+        if (!typeChoiceBox.getItems().isEmpty()) {
+            typeChoiceBox.getItems().clear();
         }
 
         TypeService typeService = new TypeService();
         typeService.start();
 
-        typeService.setOnSucceeded(e -> {
-            typesList.setAll(typeService.getValue());
-            typeChoiceBox.setItems(typesList);
-        });
+        typeService.setOnSucceeded(e -> typeChoiceBox.setItems(typeService.getValue()));
     }
 
+    public static void getTypes(TableView types) {
+        if (!types.getItems().isEmpty()) {
+            types.getItems().clear();
+        }
 
-    public static void getDoctors(ObservableList<Doctor> doctorsList, TableView<Doctor> tableView,
-                                  ChoiceBox<Doctor> doctorVaccinationChoiceBox, ChoiceBox<Doctor> doctorAppointmentChoiceBox) {
-        if (!doctorsList.isEmpty()) {
-            doctorsList.clear();
+        TypeService typeService = new TypeService();
+        typeService.start();
+
+        typeService.setOnSucceeded(e -> types.setItems(typeService.getValue()));
+    }
+
+    public static void getDoctors(TableView<Doctor> tableView,
+                                  ChoiceBox<Doctor> doctorChoiceBox) {
+
+        if ((tableView != null) && (!tableView.getItems().isEmpty())) {
+            tableView.getItems().clear();
         }
 
         DoctorService doctorService = new DoctorService();
         doctorService.start();
 
         doctorService.setOnSucceeded(e -> {
-            doctorsList.setAll(doctorService.getValue());
-            if(tableView != null)
-                tableView.setItems(doctorsList);
-            if(doctorAppointmentChoiceBox != null)
-                doctorAppointmentChoiceBox.setItems(doctorsList);
-            if(doctorVaccinationChoiceBox != null)
-                doctorVaccinationChoiceBox.setItems(doctorsList);
+            if(tableView != null) {
+                tableView.setItems(doctorService.getValue());
+                tableView.setVisible(true);
+            }
+            if(doctorChoiceBox != null)
+                doctorChoiceBox.setItems(doctorService.getValue());
         });
     }
 
-    public static void getAppointments(String email, ObservableList<Appointment> appointmentsList,
-                                       TableView<Appointment> tableView) {
+    public static void getAppointments(String email, TableView<Appointment> tableView) {
 
-        if(!appointmentsList.isEmpty()) {
-            appointmentsList.clear();
+        if(!tableView.getItems().isEmpty()) {
+            tableView.getItems().clear();
         }
 
         AppointmentService appointmentService;
@@ -253,17 +406,17 @@ public class Functions {
         appointmentService.start();
 
         appointmentService.setOnSucceeded(e -> {
-            appointmentsList.setAll(appointmentService.getValue());
-            tableView.setItems(appointmentsList);
+            tableView.setItems(appointmentService.getValue());
+            tableView.setVisible(true);
         });
 
 
     }
 
-    public static void getUsers(String email, ObservableList<User> userList, TableView<User> tableView) {
+    public static void getUsers(String email, TableView<User> tableView) {
 
-        if(!userList.isEmpty()) {
-            userList.clear();
+        if(!tableView.getItems().isEmpty()) {
+            tableView.getItems().clear();
         }
 
         UserService userService;
@@ -274,11 +427,58 @@ public class Functions {
         userService.start();
 
         userService.setOnSucceeded(e -> {
-            userList.setAll(userService.getValue());
-            if(tableView != null)
-                tableView.setItems(userList);
+            tableView.setItems(userService.getValue());
+            tableView.setVisible(true);
         });
     }
 
+    public static void getUser(String email, List<User> user) {
+
+        UserService userService;
+        if(email == null)
+            userService = new UserService();
+        else
+            userService = new UserService(email);
+        userService.start();
+
+        userService.setOnSucceeded(e -> user.add(userService.getValue().get(0)));
+
+    }
+
+    public static void showUserDetails(User user) {
+        if(user == null) {
+            return;
+        }
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(Main.stage);
+        dialog.setTitle("Kliniczka by dnajdrowski");
+        dialog.getDialogPane().getButtonTypes().add(new ButtonType("POWRÓT",ButtonBar.ButtonData.CANCEL_CLOSE));
+
+        try {
+            FXMLLoader loader = Main.loadFXML("userDetailsDialog");
+            dialog.getDialogPane().setContent(loader.load());
+            UserDetailsController controller = loader.getController();
+            controller.setUser(user);
+        } catch (IOException e) {
+            e.getMessage();
+        }
+
+        dialog.showAndWait();
+    }
+
+    public static void setAnchorPane(HBox hBox, String fxml) {
+        Platform.runLater(() -> {
+            try {
+                if (hBox.getChildren().size() == 1) {
+                    hBox.getChildren().add(1, Main.loadFXML(fxml + "AnchorPane").load());
+                } else {
+                    hBox.getChildren().set(1, Main.loadFXML(fxml + "AnchorPane").load());
+                }
+            } catch (IOException e) {
+                e.getMessage();
+            }
+        });
+    }
 }
 

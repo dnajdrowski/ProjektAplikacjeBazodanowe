@@ -27,6 +27,11 @@ public class DataVariables {
     public static final String TABLE_LEKARZ = "lekarz";
     public static final String TABLE_RECEPCJONISTA = "recepcjonista";
 
+    //UPDATES
+    public static final String UPDATE_PRICE_APPOINTMENT = "UPDATE wizyta SET cena = ? WHERE id_wizyty = ?";
+    public static final String UPDATE_SICKNESS_APPOINTMENT = "UPDATE wizyta SET id_choroba = ? WHERE id_wizyty = ?";
+    public static final String UPDATE_MEDICINE_APPOINTMENT = "UPDATE wizyta SET id_lek = ? WHERE id_wizyty = ?";
+
 
     //SELECTS
     public static final String SELECT_WLASCICIEL = "SELECT * FROM wlasciciel INNER JOIN adres a ON " +
@@ -35,8 +40,9 @@ public class DataVariables {
     public static final String SELECT_GATUNEK = "SELECT * FROM gatunek;";
     public static final String SELECT_WLASCICIEL_BY_EMAIL = "SELECT * FROM wlasciciel INNER JOIN adres a ON " +
             "wlasciciel.id_adres = a.id_adres WHERE email = ?";
-    public static final String SELECT_PETS = "SELECT * FROM zwierze INNER JOIN gatunek g ON zwierze.id_gatunek=" +
-            "g.id_gatunek";
+    public static final String SELECT_PETS = "SELECT * FROM zwierze INNER JOIN gatunek g ON zwierze.id_gatunek=g.id_gatunek inner join wlasciciel w on zwierze.id_wlasciciel = w.id_wlasciciel";
+    public static final String SELECT_SICKNESSES = "SELECT * FROM choroba";
+    public static final String SELECT_MEDICINES = "SELECT * FROM lek";
     public static final String SELECT_PETS_BY_USER_ID = "SELECT * FROM zwierze INNER JOIN gatunek g ON zwierze.id_gatunek=\n" +
             "                      g.id_gatunek INNER JOIN wlasciciel w on zwierze.id_wlasciciel = w.id_wlasciciel WHERE w.id_wlasciciel = ?";
     public static final String SELECT_APPOINTMENTS = "SELECT * FROM wizyta INNER JOIN lekarz l ON wizyta.id_lekarz = " +
@@ -58,6 +64,7 @@ public class DataVariables {
 
     //FUNCTIONS
     public static final String functionAddUser = "CALL dodaj_wlasciciela(?,?,?,?,?,?,?,?,?,?,?)";
+    public static final String functionChangeAdress = "SELECT zmien_adres_wlasciciela(?,?,?,?,?)";
 
     //INSERTS
     public static final String INSERT_PET = "INSERT INTO zwierze(nazwa_zwierze,plec,data_ur_zwierz,id_wlasciciel,id_gatunek) VALUE " +
@@ -73,10 +80,16 @@ public class DataVariables {
     public static final String DELETE_PET = "DELETE FROM zwierze where id_zwierze=?";
     public static final String DELETE_APPOINTMENT = "DELETE FROM wizyta where id_wizyty=?";
     public static final String DELETE_VACCINATION = "DELETE FROM szczepienie where id_szczepienie=?";
+    public static final String DELETE_MEDICINE ="DELETE FROM lek where id_lek =?";
+    public static final String DELETE_VACCINATION_TYPE ="DELETE FROM typ_szczepienia where id_typ_szczepienia =?";
+    public static final String DELETE_SICKNESS ="DELETE FROM choroba where id_choroba";
+    public static final String DELETE_TYPE ="DELETE FROM gatunek where id_gatunek =?";
+
 
 
     //ACTUAL EMAIL LOGGED IN
     public static String email;
+    public static String userType;
 
     //walidacja emailu
     public static boolean isValidEmail(String email) {

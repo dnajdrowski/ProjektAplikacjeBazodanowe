@@ -14,7 +14,7 @@
 
 <GridPane fx:id="loginGridPane" alignment="center" hgap="10" stylesheets="@../styles/login.css" vgap="30"
           xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="com.dnajdrowski.Controllers.loginController">
+          fx:controller="com.dnajdrowski.Controllers.LoginController">
     <ImageView GridPane.columnIndex="0" GridPane.rowIndex="0">
         <Image url="@../images/logo.jpg"/>
     </ImageView>

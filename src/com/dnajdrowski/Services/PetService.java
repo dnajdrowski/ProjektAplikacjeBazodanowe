@@ -39,7 +39,6 @@ public class PetService extends Service<ObservableList<Pet>> {
                 ObservableList<Pet> pets = FXCollections.observableArrayList();
 
                 try (PreparedStatement selectPets = Main.con.prepareStatement(query)) {
-
                     if(flag) {
                         selectPets.setInt(1, id);
                     }

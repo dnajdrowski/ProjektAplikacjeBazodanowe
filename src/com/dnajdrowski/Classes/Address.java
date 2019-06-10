@@ -1,14 +1,14 @@
 package com.dnajdrowski.Classes;
 
 
-public class Adress {
+public class Address {
     private int id;
     private String city;
     private String postCode;
     private String street;
     private String houseNumber;
 
-    public Adress(int id, String city, String postCode, String street, String houseNumber) {
+    public Address(int id, String city, String postCode, String street, String houseNumber) {
         this.id = id;
         this.city = city;
         this.postCode = postCode;

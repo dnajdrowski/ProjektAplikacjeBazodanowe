@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<AnchorPane fx:id="anchorList" prefHeight="600" prefWidth="571.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
-            xmlns:fx="http://javafx.com/fxml/1">
-    <TableView fx:id="tableView" prefHeight="600.0" prefWidth="571">
+<AnchorPane prefHeight="600" prefWidth="671.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dnajdrowski.Controllers.UserListController">
+    <TableView fx:id="tableView" prefHeight="600.0" prefWidth="660">
         <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
         </columnResizePolicy>
@@ -39,6 +39,16 @@
             <TableColumn text="Data urodzenia">
                 <cellValueFactory>
                     <PropertyValueFactory property="birthDate"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Pesel">
+                <cellValueFactory>
+                    <PropertyValueFactory property="peselNumber"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Telefon">
+                <cellValueFactory>
+                    <PropertyValueFactory property="phoneNumber"/>
                 </cellValueFactory>
             </TableColumn>
         </columns>

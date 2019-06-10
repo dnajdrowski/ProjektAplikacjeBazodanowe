@@ -3,14 +3,10 @@ package com.dnajdrowski.Classes;
 public class Sickness {
     private int id;
     private String name;
-    private String symptoms;
-    private String treatment;
 
-    public Sickness(int id, String name, String symptoms, String treatment) {
+    public Sickness(int id, String name) {
         this.id = id;
         this.name = name;
-        this.symptoms = symptoms;
-        this.treatment = treatment;
     }
 
     public int getId() {
@@ -29,19 +25,8 @@ public class Sickness {
         this.name = name;
     }
 
-    public String getSymptoms() {
-        return symptoms;
-    }
-
-    public void setSymptoms(String symptoms) {
-        this.symptoms = symptoms;
-    }
-
-    public String getTreatment() {
-        return treatment;
-    }
-
-    public void setTreatment(String treatment) {
-        this.treatment = treatment;
+    @Override
+    public String toString() {
+        return name;
     }
 }

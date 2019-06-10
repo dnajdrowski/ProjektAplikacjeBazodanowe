@@ -1,6 +1,6 @@
 package com.dnajdrowski.Services;
 
-import com.dnajdrowski.Classes.Adress;
+import com.dnajdrowski.Classes.Address;
 import com.dnajdrowski.Classes.Doctor;
 import com.dnajdrowski.DataStructure.DataVariables;
 import com.dnajdrowski.Main;
@@ -38,7 +38,7 @@ public class DoctorService extends Service<ObservableList<Doctor>> {
                                 //TODO
                                 //zmienic literowke nizej specjalizajca
                                 resultSet.getString("specjalizajca"),
-                                new Adress(resultSet.getInt("id_adres"),
+                                new Address(resultSet.getInt("id_adres"),
                                         resultSet.getString("miasto"),
                                         resultSet.getString("kod_pocz"),
                                         resultSet.getString("ulica"),

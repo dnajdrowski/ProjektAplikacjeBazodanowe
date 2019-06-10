@@ -15,6 +15,8 @@ public class Appointment {
     private String petName;
     private String doctorFullName;
     private String ownerName;
+    private String medicineName;
+    private String sicknessName;
 
     public Appointment(int id, Pet pet, Doctor doctor, String purpose, double price, Date appointmentDate) {
         this.id = id;
@@ -26,6 +28,22 @@ public class Appointment {
         this.doctorFullName = doctor.getFirstName() + " " + doctor.getLastName();
         this.petName = pet.getName();
         this.ownerName = pet.getUser().getFirstName() + " " + pet.getUser().getLastName();
+    }
+
+    public String getMedicineName() {
+        return medicineName;
+    }
+
+    public void setMedicineName(String medicineName) {
+        this.medicineName = medicineName;
+    }
+
+    public String getSicknessName() {
+        return sicknessName;
+    }
+
+    public void setSicknessName(String sicknessName) {
+        this.sicknessName = sicknessName;
     }
 
     public String getOwnerName() {

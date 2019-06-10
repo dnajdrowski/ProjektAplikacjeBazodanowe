@@ -25,7 +25,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        Parent root = loadFXML("login");
+        Parent root = loadFXML("login").load();
         scene = new Scene(root, 600, 800);
         primaryStage.setTitle("Kliniczka by dnajdrowski");
         primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("images/applogo.jpg")));
@@ -72,12 +72,11 @@ public class Main extends Application {
     }
 
     public static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+        scene.setRoot(loadFXML(fxml).load());
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("Layouts/" + fxml + ".fxml"));
-        return loader.load();
+    public static FXMLLoader loadFXML(String fxml) throws IOException {
+        return new FXMLLoader(Main.class.getResource("Layouts/" + fxml + ".fxml"));
     }
 
     public static void main(String[] args) {

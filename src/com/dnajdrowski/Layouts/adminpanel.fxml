@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox fx:id="panelHBox" prefHeight="600.0" prefWidth="793.0" stylesheets="@../styles/panel.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dnajdrowski.Controllers.AdministratorController">
+    <VBox>
+        <VBox style="-fx-border-width: 0 4 0 0; -fx-border-color: #14668A;">
+            <ImageView fitHeight="163.0" fitWidth="225.0">
+                <Image url="@../images/administrator.jpg" />
+            </ImageView>
+        </VBox>
+        <Button id="menuButton" onAction="#checkActivity" fx:id="btnAppointments" prefHeight="192.0" prefWidth="229.0" text="WIZYTY">
+    </Button>
+        <Button id="menuButton" onAction="#checkActivity" fx:id="btnVaccinations" layoutX="10.0" layoutY="461.0" prefHeight="182.0" prefWidth="229.0" text="SZCZEPIENIA">
+        </Button>
+        <Button id="menuButton" onAction="#checkActivity" fx:id="btnUsers" layoutX="10.0" layoutY="461.0" prefHeight="182.0" prefWidth="229.0" text="WŁAŚCICIELE">
+        </Button>
+        <Button id="menuButton" onAction="#checkActivity" fx:id="btnPets" layoutX="10.0" layoutY="461.0" prefHeight="182.0" prefWidth="229.0" text="ZWIERZETA">
+        </Button>
+        <Button id="menuButton" onAction="#checkActivity" fx:id="btnOther" layoutX="10.0" layoutY="461.0" prefHeight="182.0" prefWidth="229.0" text="INNE">
+        </Button>
+        <Button id="menuButton" onAction="#checkActivity" fx:id="btnLogout" prefHeight="198.0" prefWidth="229.0" text="WYLOGUJ">
+        </Button>
+    </VBox>
+</HBox>

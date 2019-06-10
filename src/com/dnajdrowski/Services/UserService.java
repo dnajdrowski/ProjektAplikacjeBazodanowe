@@ -1,7 +1,7 @@
 package com.dnajdrowski.Services;
 
 import com.dnajdrowski.Main;
-import com.dnajdrowski.Classes.Adress;
+import com.dnajdrowski.Classes.Address;
 import com.dnajdrowski.DataStructure.DataVariables;
 import com.dnajdrowski.Classes.User;
 import javafx.collections.FXCollections;
@@ -14,9 +14,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserService extends Service<ObservableList<User>> {
-    final String query;
-    final String email;
-    final boolean flag;
+    private final String query;
+    private final String email;
+    private final boolean flag;
 
     public UserService() {
         query = DataVariables.SELECT_WLASCICIEL;
@@ -44,7 +44,6 @@ public class UserService extends Service<ObservableList<User>> {
                     }
 
                     ResultSet resultSet = userStatement.executeQuery();
-
                     while (resultSet.next()) {
                         users.add(new User(resultSet.getInt("id_wlasciciel"),
                                 resultSet.getString("imie"),
@@ -54,7 +53,7 @@ public class UserService extends Service<ObservableList<User>> {
                                 resultSet.getString("telefon"),
                                 resultSet.getString("pesel"),
                                 resultSet.getDate("data_ur"),
-                                new Adress(resultSet.getInt("id_adres"),
+                                new Address(resultSet.getInt("id_adres"),
                                         resultSet.getString("miasto"),
                                         resultSet.getString("kod_pocz"),
                                         resultSet.getString("ulica"),

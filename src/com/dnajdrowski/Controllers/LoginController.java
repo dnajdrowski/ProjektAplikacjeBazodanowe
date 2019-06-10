@@ -6,14 +6,16 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import org.ini4j.Ini;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class loginController {
+public class LoginController {
 
 
     @FXML
@@ -31,22 +33,47 @@ public class loginController {
     @FXML
     private Button loginButton;
 
+    private Ini ini;
 
-    public void initialize() {
+
+    public void initialize() throws IOException{
         Platform.runLater(() -> loginGridPane.requestFocus());
         loginButton.setDisable(false);
-        emailTextField.setText("storczykowie4c@gmail.com");
-        passwordField.setText("Storczyk1337$");
+        emailTextField.setText("piotrkarsko1993@o2.pl");
+        passwordField.setText("PiotrKarsko178!");
         checkValidInputPattern();
+        ini = new Ini(new File("kliniczka.ini"));
     }
 
     @FXML
     public void checkUser() {
         new Thread(() -> {
-            checkUserType(DataVariables.TABLE_WLASCICIEL, "userpanel");
-            checkUserType(DataVariables.TABLE_LEKARZ, "doctorpanel");
-            checkUserType(DataVariables.TABLE_RECEPCJONISTA, "receptionistpanel");
-            if (Main.stage.getWidth() != 800) {
+            boolean isUser = checkUserType(DataVariables.TABLE_WLASCICIEL, "userpanel");
+            boolean isDoctor = checkUserType(DataVariables.TABLE_LEKARZ, "doctorpanel");
+            boolean isReceptionist = checkUserType(DataVariables.TABLE_RECEPCJONISTA, "receptionistpanel");
+            boolean isAdmin = emailTextField.getText().equals(ini.get("ITEMS").get("login")) && passwordField.getText().equals(ini.get("ITEMS").get("password"));
+
+            if(isAdmin) {
+                try {
+                    Main.setRoot("adminpanel");
+                } catch (IOException e) {
+                    e.getMessage();
+                }
+                Main.stage.setWidth(900);
+                Main.stage.setHeight(600);
+                Main.stage.centerOnScreen();
+                Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        DataVariables.setAlert(alert, "Pomyślnie zalogowano",
+                                "");
+                        alert.setContentText("Witaj! Zostałeś zalogowany jako administrator!" );
+                        DataVariables.userType = "administator";
+                        alert.show();
+
+                });
+                return;
+            }
+            if (!(isUser || isDoctor || isReceptionist)) {
                 Platform.runLater(() -> {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     DataVariables.setAlert(alert, "Brak użytkownika",
@@ -58,15 +85,14 @@ public class loginController {
         }).start();
     }
 
-
-    //sprawdzenie, czy wpisane dane pasuja do regexow
     @FXML
     public void checkValidInputPattern() {
         String email = emailTextField.getText();
         String password = passwordField.getText();
         String message = "";
-        boolean isValidEmail = DataVariables.isValidEmail(email);
-        boolean isValidToRegex = DataVariables.isValidToRegex(passwordField.getText(), DataVariables.passwordPattern);
+        boolean isValidEmail = DataVariables.isValidEmail(email) || email.equals(ini.get("ITEMS").get("login"));
+        boolean isValidToRegex = DataVariables.isValidToRegex(passwordField.getText(), DataVariables.passwordPattern) ||
+                password.equals(ini.get("ITEMS").get("password"));
 
 
         if (isValidEmail && isValidToRegex) {
@@ -88,18 +114,18 @@ public class loginController {
 
     }
 
-
-    //sprawdzenie, czy uzytkownik jaki uzytkownik sie loguje oraz poprawnosc danych logowania
-    private void checkUserType(String tableName, String panel) {
+    private boolean checkUserType(String tableName, String panel) {
+        boolean result = false;
         try {
             PreparedStatement statement = Main.con.prepareStatement(DataVariables.checkTableByEmail.replace("$tableName",
                     tableName));
             statement.setString(1, emailTextField.getText());
-            ResultSet result = statement.executeQuery();
-            if (result.next() && result.getString("password").equals(passwordField.getText())) {
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next() && resultSet.getString("password").equals(passwordField.getText())) {
+                result = true;
                 DataVariables.email = emailTextField.getText();
                 Main.setRoot(panel);
-                Main.stage.setWidth(800);
+                Main.stage.setWidth(900);
                 Main.stage.setHeight(600);
                 Main.stage.centerOnScreen();
                 Platform.runLater(() -> {
@@ -107,9 +133,10 @@ public class loginController {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         DataVariables.setAlert(alert, "Pomyślnie zalogowano",
                                 "");
-                        alert.setContentText("Witaj " + result.getString("imie") + " " +
-                                result.getString("nazwisko") + "!\nZostałeś zalogowany jako " +
+                        alert.setContentText("Witaj " + resultSet.getString("imie") + " " +
+                                resultSet.getString("nazwisko") + "!\nZostałeś zalogowany jako " +
                                 tableName + ".");
+                        DataVariables.userType = tableName;
                         alert.show();
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -119,6 +146,7 @@ public class loginController {
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
+        return result;
     }
 }
 

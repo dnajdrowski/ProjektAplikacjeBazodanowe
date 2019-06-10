@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="671" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.dnajdrowski.Controllers.AppointmentListController">
+<TableView fx:id="tableViewAppointments" prefHeight="600.0" prefWidth="671">
+    <columnResizePolicy>
+        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+    </columnResizePolicy>
+    <columns>
+        <TableColumn text="Imie pupila">
+            <cellValueFactory>
+                <PropertyValueFactory property="petName" />
+            </cellValueFactory>
+        </TableColumn>
+        <TableColumn text="Data wizyty">
+            <cellValueFactory>
+                <PropertyValueFactory property="appointmentDate" />
+            </cellValueFactory>
+        </TableColumn>
+        <TableColumn text="Cel wizyty">
+            <cellValueFactory>
+                <PropertyValueFactory property="purpose" />
+            </cellValueFactory>
+        </TableColumn>
+        <TableColumn text="Lekarz">
+            <cellValueFactory>
+                <PropertyValueFactory property="doctorFullName" />
+            </cellValueFactory>
+        </TableColumn>
+        <TableColumn text="Cena">
+            <cellValueFactory>
+                <PropertyValueFactory property="price" />
+            </cellValueFactory>
+        </TableColumn>
+    </columns>
+</TableView>
+</AnchorPane>

@@ -1,33 +1,24 @@
 package com.dnajdrowski.Controllers;
 
-import com.dnajdrowski.Main;
-import com.dnajdrowski.DataStructure.DataVariables;
 import com.dnajdrowski.Classes.MyStringConverter;
-import com.dnajdrowski.Classes.User;
+import com.dnajdrowski.DataStructure.DataVariables;
+import com.dnajdrowski.Main;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
-import static com.dnajdrowski.DataStructure.Functions.*;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-public class receptionistController {
-
-
-    @FXML
-    private AnchorPane anchorAdd, anchorList;
+public class AddUserController {
 
     @FXML
-    private Button btnAdd, btnList, btnLogout;
-
-    @FXML
-    private TextField imieTextField, nazwiskoTextField, emailTextField, peselTextField, numberTextField, phoneTextField,
+    private TextField imieTextField, nazwiskoTextField, emailTextField,
+            peselTextField, numberTextField, phoneTextField,
             cityTextField, codeTextField, streetTextField;
 
     @FXML
@@ -36,42 +27,13 @@ public class receptionistController {
     @FXML
     private DatePicker datePicker;
 
-
-
-
-    @FXML
-    private TableView<User> tableView;
-
-    private static ObservableList<User> userList;
-
-    private ArrayList<Button> buttons;
-
-
-
-    @FXML
     public void initialize() {
         datePicker.setConverter(new MyStringConverter());
 
-        buttons = new ArrayList<>(Arrays.asList(btnAdd, btnLogout, btnList));
-        userList = FXCollections.observableArrayList();
-        btnAdd.fire();
-
-        ContextMenu contextMenu = new ContextMenu();
-        MenuItem deleteContextItem = new MenuItem("Usuń");
-        deleteContextItem.setOnAction( event -> {
-            User user = tableView.getSelectionModel().getSelectedItem();
-            deleteUser(user,tableView);
-        });
-
-        contextMenu.getItems().addAll(deleteContextItem);
-        tableView.setContextMenu(contextMenu);
-
     }
 
-
-
     @FXML
-    public void addUser() {
+    private void addUser() {
         String errorMessage = checkDetails();
         if (!errorMessage.isEmpty()) {
             errorMessage = "Poniższe dane zostały wprowadzone błędnie:\n" + errorMessage;
@@ -109,7 +71,7 @@ public class receptionistController {
                     Platform.runLater(()-> {
                         Alert success = new Alert(Alert.AlertType.INFORMATION);
                         DataVariables.setAlert(success,"Dodanie właściciela", "Dodawanie właściciela " +
-                               emailTextField.getText() + " zakończło się powodzeniem!");
+                                emailTextField.getText() + " zakończło się powodzeniem!");
                         success.show();
                         clearData();
                     });
@@ -119,6 +81,21 @@ public class receptionistController {
             }
         }).start();
 
+    }
+
+    @FXML
+    private void clearData() {
+        imieTextField.clear();
+        nazwiskoTextField.clear();
+        emailTextField.clear();
+        peselTextField.clear();
+        datePicker.getEditor().clear();
+        passwordField.clear();
+        numberTextField.clear();
+        phoneTextField.clear();
+        cityTextField.clear();
+        streetTextField.clear();
+        codeTextField.clear();
     }
 
 
@@ -170,37 +147,4 @@ public class receptionistController {
 
         return errorMessage.trim();
     }
-
-    @FXML
-    public void checkActivity(ActionEvent e) {
-        if (e.getSource() == btnAdd) {
-            anchorAdd.toFront();
-            keepButtonFocused(btnAdd, buttons);
-        } else if (e.getSource() == btnList) {
-            anchorList.toFront();
-            keepButtonFocused(btnList, buttons);
-            getUsers(null, userList, tableView);
-        } else if(e.getSource() == btnLogout) {
-            logout(btnAdd);
-            keepButtonFocused(btnAdd, buttons);
-        }
-    }
-
-    @FXML
-    public void clearData() {
-        imieTextField.clear();
-        nazwiskoTextField.clear();
-        emailTextField.clear();
-        peselTextField.clear();
-        datePicker.getEditor().clear();
-        passwordField.clear();
-        numberTextField.clear();
-        phoneTextField.clear();
-        cityTextField.clear();
-        streetTextField.clear();
-        codeTextField.clear();
-    }
-
-
-
 }

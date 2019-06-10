@@ -44,4 +44,9 @@ public class Medicine {
     public void setForm(String form) {
         this.form = form;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane prefHeight="600.0" prefWidth="671" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dnajdrowski.Controllers.AdministratorOtherController">
+   <children>
+       <TableView fx:id="medicinesListView" prefHeight="600.0" prefWidth="181.0">
+           <columnResizePolicy>
+               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+           </columnResizePolicy>
+           <columns>
+               <TableColumn text="Nazwa leku">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="name" />
+                   </cellValueFactory>
+               </TableColumn>
+           </columns>
+       </TableView>
+      <TableView fx:id="typesListView" layoutX="181.0" prefHeight="600.0" prefWidth="181.0">
+          <columnResizePolicy>
+              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+          </columnResizePolicy>
+          <columns>
+              <TableColumn text="Nazwa gatunku">
+                  <cellValueFactory>
+                      <PropertyValueFactory property="name" />
+                  </cellValueFactory>
+              </TableColumn>
+          </columns>
+      </TableView>
+      <TableView fx:id="vacctinationTypesListView" layoutX="362.0" prefHeight="600.0" prefWidth="161.0">
+          <columnResizePolicy>
+              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+          </columnResizePolicy>
+          <columns>
+              <TableColumn text="Nazwa typu szczepienia">
+                  <cellValueFactory>
+                      <PropertyValueFactory property="name" />
+                  </cellValueFactory>
+              </TableColumn>
+          </columns>
+      </TableView>
+      <TableView fx:id="sicknessesListView" layoutX="523.0" prefHeight="600.0" prefWidth="161.0">
+          <columnResizePolicy>
+              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+          </columnResizePolicy>
+          <columns>
+              <TableColumn text="Nazwa choroby">
+                  <cellValueFactory>
+                      <PropertyValueFactory property="name" />
+                  </cellValueFactory>
+              </TableColumn>
+          </columns>
+      </TableView>
+   </children>
+</AnchorPane>

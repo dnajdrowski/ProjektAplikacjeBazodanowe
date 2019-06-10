@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="444.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dnajdrowski.Controllers.UserDetailsController">
+    <Label layoutX="76.0" layoutY="27.0" prefHeight="34.0" prefWidth="239.0" text="Dane personalne" textFill="#14668A">
+        <font>
+            <Font name="Times New Roman Bold" size="30.0" />
+        </font>
+    </Label>
+    <Label layoutX="65.0" layoutY="105.0" prefHeight="20.0" prefWidth="46.0" text="Imie:">
+        <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+        </font>
+    </Label>
+    <Label layoutX="24.0" layoutY="129.0" prefHeight="20.0" prefWidth="84.0" text="Nazwisko:">
+        <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+        </font>
+    </Label>
+    <Label layoutX="47.0" layoutY="155.0" prefHeight="20.0" prefWidth="65.0" text="E-mail:">
+        <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+        </font>
+    </Label>
+    <Label layoutX="39.0" layoutY="180.0" prefHeight="20.0" prefWidth="65.0" text="Telefon:">
+        <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+        </font>
+    </Label>
+    <Label layoutX="57.0" layoutY="205.0" text="Pesel:">
+        <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+        </font>
+    </Label>
+    <Label layoutX="32.0" layoutY="234.0" text="Data ur.:">
+        <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+        </font>
+    </Label>
+    <Label layoutX="42.0" layoutY="270.0" text="Miasto:">
+        <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+        </font>
+    </Label>
+    <Label layoutX="14.0" layoutY="300.0" text="Kod poczt.:">
+        <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+        </font>
+    </Label>
+    <Label layoutX="59.0" layoutY="330.0" text="Ulica:">
+        <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+        </font>
+    </Label>
+    <Label layoutX="28.0" layoutY="361.0" text="Nr domu:">
+        <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+        </font>
+    </Label>
+    <Label fx:id="firstNameLabel" layoutX="118.0" layoutY="105.0">
+        <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+        </font>
+    </Label>
+    <Label fx:id="lastNameLabel" layoutX="118.0" layoutY="129.0">
+        <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+        </font>
+    </Label>
+    <Label fx:id="emailLabel" layoutX="118.0" layoutY="155.0">
+        <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+        </font>
+    </Label>
+    <Label fx:id="phoneNumberLabel" layoutX="116.0" layoutY="180.0">
+        <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+        </font>
+    </Label>
+    <Label fx:id="peselNumberLabel" layoutX="118.0" layoutY="205.0">
+        <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+        </font>
+    </Label>
+    <Label fx:id="birthDateLabel" layoutX="118.0" layoutY="234.0">
+        <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+        </font>
+    </Label>
+    <TextField fx:id="cityTextField" layoutX="118.0" layoutY="267.0" prefHeight="20.0" prefWidth="100.0" />
+    <TextField fx:id="postCodeTextField" layoutX="118.0" layoutY="297.0" prefHeight="20.0" prefWidth="100.0" />
+    <TextField fx:id="streetNameTextField" layoutX="118.0" layoutY="327.0" prefHeight="20.0" prefWidth="100.0" />
+    <TextField fx:id="houseNumberTextField" layoutX="118.0" layoutY="357.0" prefHeight="20.0" prefWidth="100.0" />
+   <Button fx:id="changeButton" onAction="#changeUserAddress" layoutX="118.0" layoutY="405.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="ZMIEŃ ADRES" />
+</AnchorPane>
